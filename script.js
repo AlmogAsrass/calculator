@@ -99,3 +99,38 @@ backspace.addEventListener('click', () => {
         firstNum = Number(display.textContent);
     } else secondNum = Number(display.textContent);
 })
+
+window.addEventListener('keydown', (e) => {
+    if (Number(e.key) >= 0) {
+        displayValue += Number(e.key);
+        display.textContent = displayValue;
+        if (!operation) {
+            firstNum = displayValue;
+        } else secondNum = displayValue;
+    }
+})
+
+
+
+
+/*
+Digit1
+Digit2
+Digit3
+Digit4
+Digit5
+Digit6
+Digit7
+Digit8
+Digit9
+Digit0
+Minus
+Equal
+Slash
+Period
+Digit8
+Backspace
+ShiftRight
+ShiftLeft
+Enter
+*/
