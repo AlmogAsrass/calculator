@@ -1,5 +1,5 @@
-let firstNum;
-let secondNum;
+let firstNum = 0
+let secondNum = 0
 let operation;
 
 function add(a, b) {
@@ -28,6 +28,7 @@ const operators = document.querySelectorAll('.operators')
 const result = document.querySelector('#equals')
 const clear = document.querySelector('#clear')
 const decimal = document.querySelector('#decimal')
+const backspace = document.querySelector('#backspace')
 let displayValue = "";
 
 numbers.forEach(number => {
@@ -53,7 +54,7 @@ operators.forEach(operator => {
         if (secondNum && operation) {
             display.textContent = operate(operation, firstNum, secondNum);
             firstNum = Number(display.textContent);
-            secondNum = undefined;
+            secondNum = 0;
         }
         if (operator.textContent === "+") {
             operation = add
@@ -75,14 +76,26 @@ result.addEventListener('click', () => {
     } else {
         display.textContent = operate(operation, firstNum, secondNum);
         firstNum = Number(display.textContent);
-        secondNum = undefined;
+        secondNum = 0;
     }
 })
 
 clear.addEventListener('click', () => {
     display.textContent = "0";
-    firstNum = undefined;
-    secondNum = undefined;
+    firstNum = 0;
+    secondNum = 0;
     operation = undefined;
     displayValue = "";
+})
+
+backspace.addEventListener('click', () => {
+    if (displayValue.length > 1) {
+        displayValue = displayValue.slice(0, -1)
+        display.textContent = displayValue;
+    } else {
+        display.textContent = "0";
+        displayValue = "";
+    } if (!operation || !secondNum) {
+        firstNum = Number(display.textContent);
+    } else secondNum = Number(display.textContent);
 })
