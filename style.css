@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
@@ -8,15 +9,19 @@ body {
 
 .container {
     display: flex;
-    flex-direction: column wrap;
-    flex: 1;
-    width: 200px;
-    height: 300px;
+    flex-flow: row wrap;
+    width: 550px;
+    height: 550px;
+    gap: 10px;
 }
 
 button {
-    padding: 48px 24px;
-    height: 48px;
-    gap: 20px;
+    padding: 24px 48px;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#display {
+    width: 450px;
+    height: 30px;
+    border: 2px solid black;    
 }
