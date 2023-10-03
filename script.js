@@ -27,10 +27,14 @@ const numbers = document.querySelectorAll('.numbers')
 const operators = document.querySelectorAll('.operators')
 const result = document.querySelector('#equals')
 const clear = document.querySelector('#clear')
+const decimal = document.querySelector('#decimal')
 let displayValue = "";
 
 numbers.forEach(number => {
     number.addEventListener('click', () => {
+        if (displayValue.includes(".")) {
+            decimal.disabled = true;
+        } else { decimal.disabled = false }
         if (!operation) {
             displayValue += number.textContent;
             display.textContent = displayValue;
