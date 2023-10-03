@@ -22,11 +22,11 @@ function operate(operation, firstNum, secondNum) {
     return operation(firstNum, secondNum);
 }
 
-const btn = document.querySelectorAll('button')
 const display = document.querySelector('#display')
 const numbers = document.querySelectorAll('.numbers')
 const operators = document.querySelectorAll('.operators')
 const result = document.querySelector('#equals')
+const clear = document.querySelector('#clear')
 let displayValue = "";
 
 numbers.forEach(number => {
@@ -64,7 +64,21 @@ operators.forEach(operator => {
 })
 
 result.addEventListener('click', () => {
-    display.textContent = operate(operation, firstNum, secondNum);
-    firstNum = Number(display.textContent);
+    if (operation == divide && secondNum == 0) {
+        display.textContent = "Don't do that.";
+    } else if (!operation || !secondNum) {
+        display.textContent = firstNum;
+    } else {
+        display.textContent = operate(operation, firstNum, secondNum);
+        firstNum = Number(display.textContent);
+        secondNum = undefined;
+    }
+})
+
+clear.addEventListener('click', () => {
+    display.textContent = "0";
+    firstNum = undefined;
     secondNum = undefined;
+    operation = undefined;
+    displayValue = "";
 })
