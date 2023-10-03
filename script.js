@@ -107,7 +107,7 @@ function erase() {
     } else {
         display.textContent = "0";
         displayValue = "";
-    } if (!operation || !secondNum) {
+    } if (!operation) {
         firstNum = Number(display.textContent);
     } else secondNum = Number(display.textContent);
 }
