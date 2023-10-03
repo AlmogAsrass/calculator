@@ -27,6 +27,10 @@ function divide(a, b) {
     return a / b;
 }
 
+function modulo(a, b) {
+    return a % b;
+}
+
 function operate(operation, firstNum, secondNum) {
     return operation(firstNum, secondNum);
 }
@@ -65,6 +69,7 @@ function getOperator(operator) {
     if ((text || operator) === "-") operation = subtract;
     if ((text || operator) === "*") operation = multiply;
     if ((text || operator) === "/") operation = divide;
+    if ((text || operator) === "%") operation = modulo;
 }
 
 
@@ -121,7 +126,7 @@ window.addEventListener('keydown', (e) => {
     if (e.key >= 0 || e.key === ".") {
         getNumber(e.key)
     }
-    if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*") {
+    if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*" || e.key === "%") {
         getOperator(e.key)
     }
     if (e.key === "Enter" || e.key === "=") {
