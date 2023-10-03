@@ -33,7 +33,8 @@ function operate(operation, firstNum, secondNum) {
 
 function getNumber(number) {
     if (typeof (number) === "string") {
-        displayValue += number
+        if (number === "." && displayValue.includes(".")) return
+        else displayValue += number
     } else {
         displayValue += number.textContent;
     }
@@ -117,7 +118,7 @@ backspace.addEventListener('click', () =>
 )
 
 window.addEventListener('keydown', (e) => {
-    if (e.key >= 0) {
+    if (e.key >= 0 || e.key === ".") {
         getNumber(e.key)
     }
     if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*") {
