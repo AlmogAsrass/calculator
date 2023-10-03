@@ -1,6 +1,15 @@
+const display = document.querySelector('#display')
+const numbers = document.querySelectorAll('.numbers')
+const operators = document.querySelectorAll('.operators')
+const result = document.querySelector('#equals')
+const clear = document.querySelector('#clear')
+const decimal = document.querySelector('#decimal')
+const backspace = document.querySelector('#backspace')
+
 let firstNum = 0
 let secondNum = 0
 let operation;
+let displayValue = "";
 
 function add(a, b) {
     return a + b;
@@ -22,53 +31,48 @@ function operate(operation, firstNum, secondNum) {
     return operation(firstNum, secondNum);
 }
 
-const display = document.querySelector('#display')
-const numbers = document.querySelectorAll('.numbers')
-const operators = document.querySelectorAll('.operators')
-const result = document.querySelector('#equals')
-const clear = document.querySelector('#clear')
-const decimal = document.querySelector('#decimal')
-const backspace = document.querySelector('#backspace')
-let displayValue = "";
+function getNumber(number) {
+    if (typeof (number) === "string") {
+        displayValue += number
+    } else {
+        displayValue += number.textContent;
+    }
+    display.textContent = displayValue;
+    if (!operation) {
+        firstNum = Number(displayValue);
+    } else {
+        secondNum = Number(displayValue);
+    }
+    decimal.disabled = false;
+    if (displayValue.includes(".")) decimal.disabled = true;
+}
 
 numbers.forEach(number => {
-    number.addEventListener('click', () => {
-        if (displayValue.includes(".")) {
-            decimal.disabled = true;
-        } else { decimal.disabled = false }
-        if (!operation) {
-            displayValue += number.textContent;
-            display.textContent = displayValue;
-            firstNum = Number(displayValue);
-        } else {
-            displayValue += number.textContent;
-            display.textContent = displayValue;
-            secondNum = Number(displayValue);
-        }
-    })
+    number.addEventListener('click', () =>
+        getNumber(number))
 })
+
+function getOperator(operator) {
+    displayValue = "";
+    if (secondNum && operation) {
+        display.textContent = operate(operation, firstNum, secondNum);
+        firstNum = Number(display.textContent);
+        secondNum = 0;
+    }
+    let text = operator.textContent;
+    if ((text || operator) === "+") operation = add;
+    if ((text || operator) === "-") operation = subtract;
+    if ((text || operator) === "*") operation = multiply;
+    if ((text || operator) === "/") operation = divide;
+}
+
 
 operators.forEach(operator => {
-    operator.addEventListener('click', () => {
-        displayValue = "";
-        if (secondNum && operation) {
-            display.textContent = operate(operation, firstNum, secondNum);
-            firstNum = Number(display.textContent);
-            secondNum = 0;
-        }
-        if (operator.textContent === "+") {
-            operation = add
-        } else if (operator.textContent === "-") {
-            operation = subtract
-        } else if (operator.textContent === "*") {
-            operation = multiply
-        } else if (operator.textContent === "/") {
-            operation = divide
-        }
-    })
+    operator.addEventListener('click', () =>
+        getOperator(operator))
 })
 
-result.addEventListener('click', () => {
+function getResult() {
     if (operation == divide && secondNum == 0) {
         display.textContent = "Don't do that.";
     } else if (!operation || !secondNum) {
@@ -78,17 +82,25 @@ result.addEventListener('click', () => {
         firstNum = Number(display.textContent);
         secondNum = 0;
     }
-})
+}
 
-clear.addEventListener('click', () => {
+result.addEventListener('click', () =>
+    getResult()
+)
+
+function clearAll() {
     display.textContent = "0";
     firstNum = 0;
     secondNum = 0;
     operation = undefined;
     displayValue = "";
-})
+}
 
-backspace.addEventListener('click', () => {
+clear.addEventListener('click', () =>
+    clearAll()
+)
+
+function erase() {
     if (displayValue.length > 1) {
         displayValue = displayValue.slice(0, -1)
         display.textContent = displayValue;
@@ -98,39 +110,26 @@ backspace.addEventListener('click', () => {
     } if (!operation || !secondNum) {
         firstNum = Number(display.textContent);
     } else secondNum = Number(display.textContent);
-})
+}
+
+backspace.addEventListener('click', () =>
+    erase()
+)
 
 window.addEventListener('keydown', (e) => {
-    if (Number(e.key) >= 0) {
-        displayValue += Number(e.key);
-        display.textContent = displayValue;
-        if (!operation) {
-            firstNum = displayValue;
-        } else secondNum = displayValue;
+    if (e.key >= 0) {
+        getNumber(e.key)
+    }
+    if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*") {
+        getOperator(e.key)
+    }
+    if (e.key === "Enter" || e.key === "=") {
+        getResult()
+    }
+    if (e.key === "Delete") {
+        clearAll()
+    }
+    if (e.key === "Backspace") {
+        erase()
     }
 })
-
-
-
-
-/*
-Digit1
-Digit2
-Digit3
-Digit4
-Digit5
-Digit6
-Digit7
-Digit8
-Digit9
-Digit0
-Minus
-Equal
-Slash
-Period
-Digit8
-Backspace
-ShiftRight
-ShiftLeft
-Enter
-*/
