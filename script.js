@@ -129,6 +129,7 @@ window.addEventListener('keydown', (e) => {
     }
     if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*" || e.key === "%") {
         getOperator(e.key)
+        e.preventDefault()
     }
     if (e.key === "Enter" || e.key === "=") {
         getResult()
