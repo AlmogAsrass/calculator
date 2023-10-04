@@ -1,27 +1,79 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Courier New', Courier, monospace;
+    background-color: #505050;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 
 .container {
     display: flex;
-    flex-flow: row wrap;
-    width: 550px;
-    height: 550px;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 400px;
+    height: 400px;
+    gap: 15px;
+    background-color: #1C1C1C;
+}
+
+.one,
+.two,
+.three,
+.four,
+.five {
+    display: flex;
+    gap: 15px;
+    width: 100%;
 }
 
 button {
-    padding: 24px 48px;
-    font-family: 'Courier New', Courier, monospace;
+    padding: 12px;
+    flex: 1;
+    border-radius: 15px;
 }
 
 #display {
-    width: 450px;
+    display: flex;
+    align-items: center;
+    padding: 16px 8px;
+    width: 100%;
     height: 30px;
-    border: 2px solid black;    
+    color: white;
+}
+
+#zero {
+    display: flex;
+    flex: 3;
+}
+
+.numbers {
+    color: white;
+    background-color: #505050;
+}
+
+.operators,
+#equals {
+    color: white;
+    background-color: #FF9500;
+}
+
+#modulo,
+#backspace,
+#clear {
+    color: black;
+    background-color: #D4D4D2;
 }
