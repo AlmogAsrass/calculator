@@ -36,6 +36,7 @@ function operate(operation, firstNum, secondNum) {
 }
 
 function getNumber(number) {
+    if (displayValue.length > 12) return;
     if (typeof (number) === "string") {
         if (number === "." && displayValue.includes(".")) return
         else displayValue += number
